@@ -1,6 +1,6 @@
 map <F7> :tabp <CR>
 map <F8> :tabn <CR>
-map <F9> :tabe
+map <F9> :tabe 
 :set nu
 :set expandtab
 :set tabstop=4
