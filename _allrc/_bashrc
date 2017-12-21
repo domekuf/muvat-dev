@@ -23,3 +23,5 @@ alias lic-make='cd $HOME/lic-c-client/build-aux && make -sj35 || cd $OLDPWD'
 alias vim-map='vim $HOME/.vimrc'
 
 alias ssh-fix='eval $(ssh-agent) && ssh-add $HOME/.ssh/!(*.pub)'
+
+alias split-struct='$HOME/split-struct.sh' #find in snippets folder
