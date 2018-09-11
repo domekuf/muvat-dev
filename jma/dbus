@@ -1,0 +1,1 @@
+sudo /bin/dbus-daemon --config-file=$SPV/src/spv-dbus.conf --nofork --nopidfile --systemd-activation
