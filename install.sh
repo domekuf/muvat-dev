@@ -10,13 +10,13 @@ ln -f _bashrc $HOME/.muvat/bashrc
 ## .bashrc START ##
 echo "## MUVAT START ##" >> $HOME/.bashrc
 echo "#### Don't delete this section. Use \`muvat-uninstall\` instead" >> $HOME/.bashrc
-echo "source .muvat/bashrc" >> $HOME/.bashrc
+echo "source $HOME/.muvat/bashrc" >> $HOME/.bashrc
 source $HOME/.muvat/bashrc
 
 ## JMA START ##
 mkdir $HOME/.muvat/jma
 ln -f jma/_bashrc $HOME/.muvat/jma/bashrc
-echo "source .muvat/jma/bashrc" >> $HOME/.bashrc
+echo "source $HOME/.muvat/jma/bashrc" >> $HOME/.bashrc
 source $HOME/.muvat/jma/bashrc
 ## JMA STOP ##
 
