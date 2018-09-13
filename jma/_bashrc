@@ -6,7 +6,7 @@ export mod=src/lib-model
 export vie=run/share/web/views
 alias spv="cd $SPV"
 
-echo "Hi! dof,dex aliases are installed"
+echo "Hi! dof, dex, dru, dcp aliases are installed"
 function dof()
 {
     docker ps -q -f ancestor=$1
@@ -21,4 +21,16 @@ function dex()
     else
         echo "dex will work only if a single container from $1 is running"
     fi
+}
+
+function dru()
+{
+    docker run --privileged --detach $1
+}
+
+function dcp()
+{
+    docker cp $(dof $1):$2 /tmp/
+    docker cp /tmp/$(basename $2) $(dof $3):$4
+    rm /tmp/$(basename $2)
 }
