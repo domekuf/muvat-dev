@@ -5,7 +5,20 @@ export orm=src/lib-orm
 export mod=src/lib-model
 export vie=run/share/web/views
 alias spv="cd $SPV"
+
+echo "Hi! dof,dex aliases are installed"
 function dof()
 {
     docker ps -q -f ancestor=$1
+}
+
+function dex()
+{
+    img=$(dof $1)
+    if [ $(echo $img | wc -w) == 1 ]
+    then
+        docker exec -it $(dof $1) /bin/bash
+    else
+        echo "dex will work only if a single container from $1 is running"
+    fi
 }
