@@ -5,4 +5,7 @@ export orm=src/lib-orm
 export mod=src/lib-model
 export vie=run/share/web/views
 alias spv="cd $SPV"
-
+function dof()
+{
+    docker ps -q -f ancestor=$1
+}
