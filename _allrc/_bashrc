@@ -11,17 +11,37 @@ fi
 # User specific aliases and functions
 stty -ixon
 
-source /etc/bash_completion.d/git
-alias v='vim'
-alias g='git'
-alias bbu-make='cd $HOME/baseband/bld && /usr/local/bin/unshare-make.sh -sj35 && cd --'
-alias bbu-make-check='cd $HOME/baseband/bld && /usr/local/bin/unshare-make.sh check -sj35 && cd --'
-alias bbu-make-distcheck='cd $HOME/baseband/bld && /usr/local/bin/unshare-make.sh distcheck -sj35 && cd --'
-
-alias lic-make='cd $HOME/lic-c-client/build-aux && make -sj35 || cd $OLDPWD'
-
 alias vim-map='vim $HOME/.vimrc'
 
 alias ssh-fix='eval $(ssh-agent) && ssh-add $HOME/.ssh/!(*.pub)'
 
 alias split-struct='$HOME/split-struct.sh' #find in snippets folder
+
+echo "Hi! dof, dex, dru, dcp aliases are installed"
+function dof()
+{
+    docker ps -q -f ancestor=$1
+}
+
+function dex()
+{
+    img=$(dof $1)
+    if [ $(echo $img | wc -w) == 1 ]
+    then
+        docker exec -it $(dof $1) /bin/bash
+    else
+        echo "dex will work only if a single container from $1 is running"
+    fi
+}
+
+function dru()
+{
+    docker run --privileged --detach $1
+}
+
+function dcp()
+{
+    docker cp $(dof $1):$2 /tmp/
+    docker cp /tmp/$(basename $2) $(dof $3):$4
+    rm /tmp/$(basename $2)
+}
