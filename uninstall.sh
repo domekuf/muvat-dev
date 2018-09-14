@@ -1,4 +1,4 @@
-sed  -i '/MUVAT START/,/MUVAT STOP/d' ../.bashrc
+sed  -i '/MUVAT START/,/MUVAT STOP/d' $HOME/.bashrc
 
 ## JMA START ##
 
