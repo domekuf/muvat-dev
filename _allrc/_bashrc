@@ -45,3 +45,7 @@ function dcp()
     docker cp /tmp/$(basename $2) $(dof $3):$4
     rm /tmp/$(basename $2)
 }
+
+alias muvat-uninstall="$HOME/.muvat/uninstall.sh"
+
+source $HOME/.muvat/git/git-completion.bash
