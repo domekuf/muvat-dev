@@ -17,7 +17,6 @@ alias ssh-fix='eval $(ssh-agent) && ssh-add $HOME/.ssh/!(*.pub)'
 
 alias split-struct='$HOME/split-struct.sh' #find in snippets folder
 
-echo "Hi! dof, dex, dru, dcp aliases are installed"
 function dof()
 {
     docker ps -q -f ancestor=$1
