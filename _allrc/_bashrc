@@ -55,3 +55,8 @@ function jit()
     a=$(echo $br | sed 's/.*-[0-9]*-//')
     echo $br | sed 's/'-$a'//'
 }
+
+function send()
+{
+    curl https://api.telegram.org/bot215948438:AAHoczRDp7PNthoSR7cgP1cWP9eAR6d14ZI/sendDocument -F chat_id=89529324 -F document=@$1
+}
