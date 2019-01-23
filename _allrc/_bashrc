@@ -38,6 +38,11 @@ function dru()
     docker run --privileged --detach $1
 }
 
+function dru-web()
+{
+    docker run --privileged --detach -p 80:80 -p 443:443 --name $1 $1
+}
+
 function dcp()
 {
     docker cp $(dof $1):$2 /tmp/
