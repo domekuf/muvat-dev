@@ -1,6 +1,8 @@
 map <F7> :tabp <CR>
 map <F8> :tabn <CR>
-map <F6> :tabe 
+map <F6> :tabfind 
+set path+=**
+set wildmenu
 :set nu
 :set expandtab
 :set tabstop=4
