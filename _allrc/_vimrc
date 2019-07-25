@@ -1,5 +1,17 @@
 map <F7> :tabp <CR>
 map <F8> :tabn <CR>
+
+set makeprg=make\ -j8
+
+map <F2> :make<CR>
+map <F3> :make check<CR>
+map <F4> :make clean<CR>
+
+" Undo with c-z
+nnoremap <c-z> u
+imap <c-z> <Esc>ui
+
+
 map <F6> :tabfind 
 " set path+=** Put different path in folder specific .vimrc
 set wildmenu
@@ -20,6 +32,7 @@ command -nargs=0 -bar Update if &modified
 :match ExtraWhitespace /\s\+$/
 :set foldmethod=indent
 :set sw=4
+:set listchars+=nbsp:·,trail:· 
 
 " Install vim-plug if we don't already have it
 if empty(glob('~/.vim/autoload/plug.vim'))
