@@ -1,7 +1,7 @@
 map <F7> :tabp <CR>
 map <F8> :tabn <CR>
 map <F6> :tabfind 
-set path+=**
+" set path+=** Put different path in folder specific .vimrc
 set wildmenu
 :set nu
 :set expandtab
