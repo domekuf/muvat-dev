@@ -14,8 +14,9 @@ sudo yum -y install epel-release
 #Add 3rd Party Repository
 #------------------------
 #
-sudo yum-config-manager --add-repo http://10.150.120.72/repos/engineering/xran-engineering.repo
-sudo yum-config-manager --add-repo http://10.150.120.72/repos/third_party/xran-3rdparty.repo
+sudo yum-config-manager --add-repo https://dev.jmawireless.com/repos/engineering/xran-engineering.repo
+sudo yum-config-manager --add-repo https://dev.jmawireless.com/repos/third_party/xran-3rdparty.repo
+#sudo yum-config-manager --add-repo https://dev.jmawireless.com/repos/release/xran-release.repo
 sudo yum-config-manager --add-repo http://dl.fedoraproject.org/pub/epel/7/x86_64/ #needed for pugixml
 #
 #Add utilities
