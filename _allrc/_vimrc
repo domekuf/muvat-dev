@@ -45,9 +45,12 @@ call plug#begin('~/.vim/plugged')
 
 Plug 'https://github.com/leafgarland/typescript-vim.git'
 Plug 'https://gitlab.com/code-stats/code-stats-vim.git'
+Plug 'https://github.com/justmao945/vim-clang.git'
 
 " Optional: If you want a nice status line in Vim
 Plug 'vim-airline/vim-airline'
+
+Plug 'editorconfig/editorconfig-vim'
 
 call plug#end()
 "type :PlugInstall to update
@@ -55,3 +58,8 @@ set exrc
 
 let g:codestats_api_key = 'SFMyNTY.Wkc5dFpXNXBZMjg9IyNOamd5Tnc9PQ.7WVOrIV4XJlUk1Cb88mXGdXePJehjZoknvnzvaf2Tw0'
 let g:airline_section_x = airline#section#create_right(['tagbar', 'filetype', '%{CodeStatsXp()}'])
+
+map , :tabp <CR>
+map . :tabn <CR>
+map f :tabfind 
+:set paste

@@ -129,6 +129,94 @@ doc-to-test()
     ssh -i $TKEY $TEST "docker restart cbrs-api"
 }
 
+mauto()
+{
+    ssh -i $TKEY $TEST "docker exec $(jit) touch /etc/cbrs/0.pem"
+    ssh -i $TKEY $TEST "docker exec $(jit) chown xran:xran /etc/cbrs/0.pem"
+    ssh -i $TKEY $TEST "docker exec $(jit) chmod 0400 /etc/cbrs/0.pem"
+    ssh -i $TKEY $TEST "docker exec $(jit) sed -i 's%clientCert\"[^,]*%clientCert\": \"/etc/cbrs/0.pem\"'%g /var/cbrs/cbrs.json"
+}
+
+class-name()
+{
+    echo $1 | sed 's@.*/\([a-Z\]\+\)[\.chp]*@\1@g'
+}
+
+class-path()
+{
+    echo $1 | sed 's@\(.*/\)[a-Z\.]\+@\1@g'
+}
+
+h-guard()
+{
+    h_guard=$(echo $1 | sed 's@\([a-z]\)\([A-Z]\)@\1_\2@g')
+    h_guard=$(echo $h_guard | sed 's@\([a-Z]\+\)[^a-Z]*@\U\1_@g')
+    h_guard=$h_guard"HPP_"
+    echo $h_guard
+}
+
+class-cp()
+{
+    old_name=$(class-name $1)
+    new_name=$(class-name $2)
+    old_path=$(class-path $1)
+    new_path=$(class-path $2)
+    old_class=$old_path$old_name
+    new_class=$new_path$new_name
+    old_h_guard=$(h-guard $1)
+    new_h_guard=$(h-guard $2)
+    if [[ $old_path == $new_path ]]; then
+        makefile="$new_path""Makefile.am"
+        echo "Attempting to update $makefile"
+        sed -i "s/$old_name/$new_name/g" $makefile
+    else
+        echo "Please manually update $new_path""Makefile.am"
+    fi
+    #echo $old_name $new_name $old_path $new_path $old_class $new_class $old_h_guard $new_h_guard $makefile
+    cp $old_class.hpp $new_class.hpp
+    cp $old_class.cpp $new_class.cpp
+    sed -i "s/$old_name/$new_name/g" $new_class.cpp
+    sed -i "s/$old_name/$new_name/g" $new_class.hpp
+    sed -i "s/$old_h_guard/$new_h_guard/g" $new_class.hpp
+    echo "Now, if you feel safe, you can remove $old_class.{h,c}pp"
+}
+
+class-touch()
+{
+
+    name=$(class-name $1)
+    path=$(class-path $1)
+    class=$path$name
+    h_guard=$(h-guard $1)
+    touch $class.{h,c}pp
+    name=$(echo $class | sed 's@.*/\([a-Z]\+\)@\1@g')
+    h_guard=$(echo $1 | sed 's@\([a-Z]\+\)[^a-Z]*@\U\1_@g')
+    h_guard=$h_guard"HPP_"
+    echo "#ifndef $h_guard"     >> $class.hpp
+    echo "#define $h_guard"     >> $class.hpp
+    echo "namespace spv {"      >> $class.hpp
+    echo "namespace cbrs {"     >> $class.hpp
+    echo ""                     >> $class.hpp
+    echo "class $name"          >> $class.hpp
+    echo "{"                    >> $class.hpp
+    echo "};"                   >> $class.hpp
+    echo ""                     >> $class.hpp
+    echo "} // namespace cbrs"  >> $class.hpp
+    echo "} // namespace spv"   >> $class.hpp
+    echo "#endif // $h_guard"   >> $class.hpp
+    echo "#include \"$name.hpp\""       >> $class.cpp
+    echo "namespace spv {"              >> $class.cpp
+    echo "namespace cbrs {"             >> $class.cpp
+    echo ""                             >> $class.cpp
+    echo "$name::$name()"               >> $class.cpp
+    echo "{"                            >> $class.cpp
+    echo "}"                            >> $class.cpp
+    echo ""                             >> $class.cpp
+    echo "} // namespace cbrs"          >> $class.cpp
+    echo "} // namespace spv"           >> $class.cpp
+    echo "Please add $name to Makefile and git"
+}
+
 # Examples
 # source m.sh && mrpm
 # source m.sh && mpush-bin cbrs-daemon

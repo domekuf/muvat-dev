@@ -65,3 +65,8 @@ function send()
 {
     curl https://api.telegram.org/bot215948438:AAHoczRDp7PNthoSR7cgP1cWP9eAR6d14ZI/sendDocument -F chat_id=89529324 -F document=@$1
 }
+
+function sit()
+{
+    git grep -l "$1" | xargs sed -i "s/$1/$2/g"
+}
