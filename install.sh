@@ -17,13 +17,6 @@ ln -f _allrc/_vimrc $HOME/.vimrc
 echo "## MUVAT START ##" >> $HOME/.bashrc
 echo "#### Don't delete this section. Use \`muvat-uninstall\` instead" >> $HOME/.bashrc
 echo "source $HOME/.muvat/bashrc" >> $HOME/.bashrc
-
-## JMA START ##
-mkdir $HOME/.muvat/jma
-ln -f jma/_bashrc $HOME/.muvat/jma/bashrc
-echo "source $HOME/.muvat/jma/bashrc" >> $HOME/.bashrc
-## JMA STOP ##
-
 echo "## MUVAT STOP ##" >> $HOME/.bashrc
 ## .bashrc STOP ##
 

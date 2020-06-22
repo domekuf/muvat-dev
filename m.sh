@@ -21,9 +21,9 @@ jit()
 
 }
 
-rpm()
+rpm-name()
 {
-    echo "$(git describe --dirty --always --match 'ver[0-9]*' --first-parent | sed -e 's|^ver||' -e 's|-|.|g')-0.x86_64"
+    echo "$(git describe --dirty --always --match 'ver[0-9]*' --first-parent | sed -e 's|^ver||' -e 's|-|.|g')-1.el7.x86_64"
 }
 
 new-jnk()
@@ -40,22 +40,22 @@ new-cnt()
 
 mpush-rpm()
 {
-	scp -i $TKEY $(pwd)/rpmbuild/RPMS/x86_64/cbrs-$(rpm).rpm $TEST:/var/cbrs/$(jit)
+	scp -i $TKEY $(pwd)/rpmbuild/RPMS/x86_64/cbrs-$(rpm-name).rpm $TEST:/var/cbrs/$(jit)
 }
 
 mpush-debuginfo()
 {
-	scp -i $TKEY $(pwd)/rpmbuild/RPMS/x86_64/cbrs-debuginfo-$(rpm).rpm $TEST:/var/cbrs/$(jit)
+	scp -i $TKEY $(pwd)/rpmbuild/RPMS/x86_64/cbrs-debuginfo-$(rpm-name).rpm $TEST:/var/cbrs/$(jit)
 }
 
 mins()
 {
-	ssh -i $TKEY $TEST "docker exec $(jit) yum install -y /var/cbrs/cbrs-$(rpm).rpm"
+	ssh -i $TKEY $TEST "docker exec $(jit) yum install -y /var/cbrs/cbrs-$(rpm-name).rpm"
 }
 
 mreins()
 {
-	ssh -i $TKEY $TEST "docker exec $(jit) yum reinstall -y /var/cbrs/cbrs-$(rpm).rpm"
+	ssh -i $TKEY $TEST "docker exec $(jit) yum reinstall -y /var/cbrs/cbrs-$(rpm-name).rpm"
 }
 
 mrpm()
@@ -74,6 +74,13 @@ mpush-bin()
     scp -i $TKEY $(pwd)/src/$1/.libs/$1 $TEST:/tmp/$(jit)-$1
     ssh -i $TKEY $TEST "docker exec $(jit) pkill $1"
     ssh -i $TKEY $TEST "docker cp /tmp/$(jit)-$1 $(jit):/usr/bin/$1"
+}
+
+mpush-bin-dbg-cbrs()
+{
+    scp -i $TKEY $(pwd)/src/cbrs-daemon/.libs/dbg-cbrs $TEST:/tmp/$(jit)-dbg-cbrs
+    ssh -i $TKEY $TEST "docker exec $(jit) pkill dbg-cbrs"
+    ssh -i $TKEY $TEST "docker cp /tmp/$(jit)-dbg-cbrs $(jit):/usr/bin/dbg-cbrs"
 }
 
 mpush-lib()
