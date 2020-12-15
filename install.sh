@@ -12,6 +12,7 @@ cp git-completion.bash $HOME/.muvat/git/
 ln -f uninstall.sh $HOME/.muvat/uninstall.sh
 ln -f _allrc/_bashrc $HOME/.muvat/bashrc
 ln -f _allrc/_vimrc $HOME/.vimrc
+ln -f _allrc/_tmux.conf $HOME/.tmux.conf
 
 ## .bashrc START ##
 echo "## MUVAT START ##" >> $HOME/.bashrc
