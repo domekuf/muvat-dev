@@ -17,6 +17,7 @@ ln -f _allrc/_vimrc $HOME/.vimrc
 echo "## MUVAT START ##" >> $HOME/.bashrc
 echo "#### Don't delete this section. Use \`muvat-uninstall\` instead" >> $HOME/.bashrc
 echo "source $HOME/.muvat/bashrc" >> $HOME/.bashrc
+echo "source $HOME/.muvat/git/git-completion.bash" >> $HOME/.bashrc
 echo "## MUVAT STOP ##" >> $HOME/.bashrc
 ## .bashrc STOP ##
 
