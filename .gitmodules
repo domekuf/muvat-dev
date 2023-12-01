@@ -1,3 +1,3 @@
 [submodule "config.d"]
 	path = config.d
-	url = https://github.com/domekuf/config.d
+	url = git@github.com:domekuf/config.d
